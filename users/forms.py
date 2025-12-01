@@ -70,3 +70,4 @@ class HRProfileForm(forms.ModelForm):
 
 
 
+

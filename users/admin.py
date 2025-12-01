@@ -26,3 +26,4 @@ class HRProfileAdmin(admin.ModelAdmin):
 
 
 
+
