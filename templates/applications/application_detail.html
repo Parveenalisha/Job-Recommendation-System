@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Application Details{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card bg-dark text-white mb-4">
+            <div class="card-header">
+                <h4>Job Details</h4>
+            </div>
+            <div class="card-body">
+                <h5>{{ application.job.title }}</h5>
+                <h6 class="text-decoration-underline">{{ application.job.company_name }}</h6>
+                <p><i class="bi bi-geo-alt"></i> {{ application.job.location }}</p>
+                <a href="{% url 'job_detail' application.job.pk %}" class="btn btn-outline-light btn-sm">
+                    View Job Posting
+                </a>
+            </div>
+        </div>
+        
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h4>Application Details</h4>
+            </div>
+            <div class="card-body">
+                <p><strong>Status:</strong> 
+                    <span class="badge 
+                        {% if application.status == 'Accepted' %}bg-success
+                        {% elif application.status == 'Rejected' %}bg-danger
+                        {% elif application.status == 'Shortlisted' %}bg-info
+                        {% elif application.status == 'Under Review' %}bg-warning
+                        {% else %}bg-secondary{% endif %}">
+                        {{ application.status }}
+                    </span>
+                </p>
+                <p><strong>Applied Date:</strong> {{ application.applied_date|date:"F d, Y" }}</p>
+                
+                <hr>
+                <h5>Cover Letter</h5>
+                <p>{{ application.cover_letter|linebreaks }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        {% if can_update_status %}
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5>Update Status</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-outline-light">
+                            <i class="bi bi-check-circle"></i> Update Status
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card bg-dark text-white mt-3">
+            <div class="card-body">
+                <h6>Applicant Information</h6>
+                {% if application.user.profile %}
+                <p><strong>Name:</strong> {{ application.user.profile.full_name }}</p>
+                <p><strong>Email:</strong> {{ application.user.email }}</p>
+                {% if application.user.profile.phone %}
+                <p><strong>Phone:</strong> {{ application.user.profile.phone }}</p>
+                {% endif %}
+                {% if application.user.profile.location %}
+                <p><strong>Location:</strong> {{ application.user.profile.location }}</p>
+                {% endif %}
+                {% if application.user.profile.experience_years %}
+                <p><strong>Experience:</strong> {{ application.user.profile.experience_years }} years</p>
+                {% endif %}
+                {% if application.user.profile.skills %}
+                <p><strong>Skills:</strong> 
+                    {% for skill in application.user.profile.get_skills_list %}
+                        <span class="badge border border-light">{{ skill }}</span>
+                    {% endfor %}
+                </p>
+                {% endif %}
+                {% else %}
+                <p><strong>Email:</strong> {{ application.user.email }}</p>
+                <p class="">Profile not completed</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

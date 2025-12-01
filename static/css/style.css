@@ -1,0 +1,289 @@
+/* Custom Styles for Job Recommendation System */
+
+body {
+    background-color: #CBCBCB;  /* replace with your custom color */
+    margin: 0;                  /* remove default body margin */
+    min-height: 100vh;          /* make sure it covers full viewport height */
+}
+
+.navbar {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+}
+
+.custom-wide-card {
+    width: 100%;
+    margin: 0 auto;      /* center me rakhne ke liye */
+}
+
+.text-banner {
+    background-color: #CBCBCB;
+    color: #333;
+    text-align: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.home_input :focus {
+    
+  border-color: #333446 !important;
+  box-shadow: 0 0 0 0.15rem #333446 !important;
+}
+
+.btn_custombg {
+    background: transparent;       /* no initial color */
+    color: white;                  /* text color */
+    border: 2px solid white;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.3s; /* smooth color change */
+}
+
+.btn.btn_custombg:hover,
+.btn.btn_custombg:focus,
+.btn.btn_custombg:active {
+    background: #B4B4B8 !important;
+    border-color: #0c0b0b !important;
+    color: #212529 !important;
+}
+
+
+.signup_btn_cstm{
+    background: #212529 ;
+    color: white;                  /* text color */
+    border: 2px solid white;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.signup_btn_cstm:hover{
+    background: #B4B4B8 !important;
+    border-color: #0c0b0b !important;
+    color: #212529 !important;
+
+}
+
+.text-banner p {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 400;
+    
+}
+
+.search_btn_home{
+    margin-top: 48px !important;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.2rem !important;
+}
+
+
+.navbar-nav .nav-link {
+    color: white;
+    padding-top: 0.8rem !important;
+    padding-bottom: 0.8rem !important;
+    margin-left: 20px;
+}
+
+.hero-slide{
+    height: 80vh !important; /* Increase/Decrease this value — 75vh looks perfect */
+    min-height: 450px; /* fallback */
+    position: relative;
+    background: #1d1f21;
+    overflow: hidden;
+}
+
+.carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    opacity: 0.8; /* Makes image darker */
+    filter: brightness(0.8); /* Additional darkening effect */
+}
+
+.job-card {
+    transition: transform 0.2s;
+    border: 1px solid #e0e0e0;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.verified-badge {
+    background-color: #28a745;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+.fake-badge {
+    background-color: #dc3545;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+.small-help + .form-text {
+  font-size: 0.8rem;
+  color: #888;
+  white-space: pre-line; /* respects \n line breaks */
+}
+
+.stat-tile{
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 1rem;
+    padding: .8rem 1rem;
+    color: #fff;
+    height: 90px;
+    
+
+}
+
+.state-value{
+    font-size: .85rem;
+    padding-top: 6px;
+}
+
+.state-title{
+    font-size: 1.1rem;
+    font-weight: 700px;
+    line-height: 1;
+    text-decoration: underline;
+} 
+
+.custom-checkbox {
+  accent-color: #212529 !important;
+  background-color: #212529 !important;
+}
+
+
+
+footer {
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+    margin-top: 4rem;
+}
+
+/* Additional custom styles */
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: none;
+}
+
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.help-block, .form-text, .invalid-feedback, .text-muted {
+  color: #CBCBCB;
+  font-size: 0.95rem;
+}
+
+
+/* Carousel Styles */
+#heroCarousel {
+    margin-top: 0;
+    margin-bottom: 0;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-item {
+    height: 500px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+}
+
+.carousel-item:nth-child(2) {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.carousel-item:nth-child(3) {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Increased from 0.3 to 0.5 for darker overlay */
+    z-index: 1;
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    text-align: center;
+    color: white;
+}
+
+.carousel-caption h2 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.carousel-caption p {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.carousel-indicators {
+    z-index: 3;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    z-index: 3;
+}
+
+/* Responsive Carousel */
+@media (max-width: 768px) {
+    .carousel-item {
+        height: 300px;
+    }
+    
+    .carousel-caption h2 {
+        font-size: 2rem;
+    }
+    
+    .carousel-caption p {
+        font-size: 1rem;
+    }
+}
+

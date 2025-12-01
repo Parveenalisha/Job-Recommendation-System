@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Applications{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2>Job Applications</h2>
+        <p class="text-muted">Applications for your posted jobs</p>
+    </div>
+</div>
+
+<div class="row">
+    {% for application in applications %}
+    <div class="col-12 mb-3">
+        <div class="card bg-dark text-white">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5 class="card-title">{{ application.job.title }}</h5>
+                        <h6 class="text-decoration-underline">{{ application.job.company_name }}</h6>
+                        <p class="mb-2">
+                            <strong>Applicant:</strong> 
+                            {% if application.user.profile %}
+                                {{ application.user.profile.full_name }}
+                            {% else %}
+                                {{ application.user.username }}
+                            {% endif %}<br>
+                            <strong>Email:</strong> {{ application.user.email }}
+                        </p>
+                        <p class="">
+                            <small>Applied {{ application.applied_date|timesince }} ago</small>
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <span class="badge 
+                            {% if application.status == 'Accepted' %}bg-success
+                            {% elif application.status == 'Rejected' %}bg-danger
+                            {% elif application.status == 'Shortlisted' %}bg-info
+                            {% elif application.status == 'Under Review' %}bg-warning
+                            {% else %}bg-secondary{% endif %} mb-2">
+                            {{ application.status }}
+                        </span>
+                        <br>
+                        <a href="{% url 'application_detail' application.pk %}" class="btn btn-outline-light btn-sm">
+                            View & Manage
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No applications received yet.
+            <a href="{% url 'job_post' %}" class="alert-link">Post a job</a> to start receiving applications.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

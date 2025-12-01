@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% if edit %}Edit{% else %}Post{% endif %} Job{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h3>{% if edit %}Edit{% else %}Post a New{% endif %} Job</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="alert alert-info bg-dark text-white border-light">
+                        <i class="bi bi-info-circle"></i> 
+                        Our ML system will automatically verify your job posting after submission.
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-outline-light " >
+                            <i class="bi bi-check-circle"></i> {% if edit %}Update{% else %}Post{% endif %} Job
+                        </button>
+                        <a href="{% if edit %}{% url 'job_detail' job.pk %}{% else %}{% url 'home' %}{% endif %}" class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+

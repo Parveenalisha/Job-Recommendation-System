@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Applied{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2>My Applications</h2>
+    </div>
+</div>
+
+<div class="row">
+    {% for application in applications %}
+    <div class="col-12 mb-3">
+        <div class="card bg-dark text-white">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5 class="card-title">{{ application.job.title }}</h5>
+                        <h6 class="text-decoration-underline">{{ application.job.company_name }}</h6>
+                        <p class="mb-2">
+                            <i class="bi bi-geo-alt"></i> {{ application.job.location }} |
+                            <i class="bi bi-briefcase"></i> {{ application.job.job_type }}
+                        </p>
+                        <p class="">
+                            <small>Applied {{ application.applied_date|timesince }} ago</small>
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-end" >
+                        <span class="badge 
+                            {% if application.status == 'Accepted' %} border border-success text-success
+                            {% elif application.status == 'Rejected' %} border border-danger text-danger
+                            {% elif application.status == 'Shortlisted' %} border border-info  text-info
+                            {% elif application.status == 'Under Review' %} border border-warning text-warning
+                            {% else %}bg-secondary{% endif %} mb-2" >
+                            {{ application.status }}
+                        </span>
+                        <br>
+                        <a href="{% url 'application_detail' application.pk %}" class="btn btn-outline-light btn-sm">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle bg-dark text-white border-light"></i> You haven't applied for any jobs yet.
+            <a href="{% url 'job_list' %}" class="alert-link">Browse jobs</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
+
+
+
+
+

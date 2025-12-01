@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}My Jobs{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+        <h2>My Posted Jobs</h2>
+        <a href="{% url 'job_post' %}" class="btn btn-outline-dark">
+            <i class="bi bi-plus-circle"></i> Post New Job
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    {% for job in jobs %}
+    <div class="col-12 mb-3">
+        <div class="card bg-dark text-white">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title">{{ job.title }}</h5>
+                            <div>
+                                {% if job.is_verified %}
+                                    <span class="verified-badge me-2">
+                                        <i class="bi bi-check-circle"></i> Verified
+                                    </span>
+                                {% else %}
+                                    <span class="fake-badge me-2">
+                                        <i class="bi bi-exclamation-triangle"></i> Review
+                                    </span>
+                                {% endif %}
+                                {% if job.is_active %}
+                                    <span class="badge border border-success text-success">Active</span>
+                                {% else %}
+                                    <span class="badge border border-secondary text-secondary">Inactive</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <h6 class="text-decoration-underline">{{ job.company_name }}</h6>
+                        <p class="mb-2">
+                            <i class="bi bi-geo-alt"></i> {{ job.location }} |
+                            <i class="bi bi-briefcase"></i> {{ job.job_type }} |
+                            <i class="bi bi-cash"></i> {{ job.get_salary_range }}
+                        </p>
+                        <p class="">
+                            <small>Posted {{ job.posted_date|timesince }} ago</small> |
+                            <small>Applications: {{ job.applications.count }}</small>
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <a href="{% url 'job_detail' job.pk %}" class="btn btn-outline-secondary btn-sm mb-2">
+                            View
+                        </a>
+                        <a href="{% url 'job_edit' job.pk %}" class="btn btn-outline-secondary btn-sm mb-2">
+                            Edit
+                        </a>
+                        <a href="{% url 'hr_applications' %}" class="btn btn-outline-light btn-sm mb-2">
+                            Applications ({{ job.applications.count }})
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info bg-dark text-white border-light">
+            <i class="bi bi-info-circle "></i> You haven't posted any jobs yet.
+            <a href="{% url 'job_post' %}" class="alert-link">Post your first job</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
+
+
+
+
+

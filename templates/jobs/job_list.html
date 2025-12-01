@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Browse jobs{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2>Browse All Jobs</h2>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card" style="background: url('/static/images/browse_job.png') center/cover no-repeat;" >
+            <div class="card-body text-white">
+                <form method="get" class="row g-3">
+                    <div class="col-md-4">
+                        {{ form.search|as_crispy_field }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form.location|as_crispy_field }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form.job_type|as_crispy_field }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form.experience_level|as_crispy_field }}
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-label">&nbsp;</label>
+                        <button type="submit" class="btn btn-outline-light w-100">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    {% for job in jobs %}
+    <div class="col-12 mb-3">
+        <div class="card job-card" style="background: url('/static/images/browse_job.png') center/cover no-repeat;">
+            <div class="card-body text-white">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title">{{ job.title }}</h5>
+                            {% if job.is_verified %}
+                                <span class="verified-badge">
+                                    <i class="bi bi-check-circle"></i> Verified
+                                </span>
+                            {% else %}
+                                <span class="fake-badge">
+                                    <i class="bi bi-exclamation-triangle"></i> Under Review
+                                </span>
+                            {% endif %}
+                        </div>
+                        <h6 class="fs-6 text-decoration-underline" >{{ job.company_name }}</h6>
+                        <p class="mb-2">
+                            <i class="bi bi-geo-alt"></i> {{ job.location }}
+                            {% if job.is_remote %}
+                                <span class="badge bg-success ms-2">Remote</span>
+                            {% endif %}
+                        </p>
+                        <p class="mb-2">
+                            <i class="bi bi-briefcase"></i> {{ job.job_type }} | 
+                            <i class="bi bi-person-badge"></i> {{ job.experience_level }} |
+                            <i class="bi bi-cash"></i> {{ job.get_salary_range }}
+                        </p>
+                        <p style="font-size: 12px;">{{ job.description|truncatewords:30 }}</p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <a href="{% url 'job_detail' job.pk %}" class="btn btn-outline-light">
+                            View Details <i class="bi bi-arrow-right"></i>
+                        </a>
+                        <p class=" mt-2">
+                            <small>Posted {{ job.posted_date|timesince }} ago</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info text-white border-0" style="background: url('/static/images/browse_job.png') center/cover no-repeat;">
+            <i class="bi bi-info-circle"></i> No jobs found matching your criteria.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
+
+
+
+
+

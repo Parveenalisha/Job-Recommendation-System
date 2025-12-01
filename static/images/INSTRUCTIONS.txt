@@ -1,0 +1,35 @@
+HOW TO ADD IMAGES TO CAROUSEL
+================================
+
+1. LOCATION:
+   Place your images in this folder:
+   C:\Users\Alisha parveen\OneDrive\job_recomm\static\images\
+
+2. CURRENT IMAGE:
+   - home1_job.jpg (already added - used for first slide)
+
+3. TO ADD MORE IMAGES:
+   You can add images with any names you want, then update the template.
+   
+   Option A - Use specific names:
+   - carousel-1.jpg (first slide)
+   - carousel-2.jpg (second slide)
+   - carousel-3.jpg (third slide)
+   
+   Option B - Use your own names:
+   Just update the image paths in templates/jobs/home.html
+
+4. RECOMMENDED IMAGE SPECS:
+   - Size: 1920x1080px or larger
+   - Format: JPG, PNG, or WebP
+   - File size: Under 500KB for faster loading
+
+5. AFTER ADDING IMAGES:
+   - Refresh your browser (Ctrl+F5 for hard refresh)
+   - Images will appear automatically
+
+
+
+
+
+

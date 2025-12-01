@@ -1,0 +1,405 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}PopyeeSync{% endblock %}
+
+{% block carousel %}
+<!-- Text Banner -->
+<div class="text-banner">
+    <p class="mb-0">"Discover opportunities that match your skills and experience"</p>
+</div>
+
+<!-- Full Width Carousel Section -->
+<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+            aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active hero-slide">
+            <img src="{% static 'images/home3_job.jpg' %}" class="d-block w-100 carousel-image"
+                alt="Find Your Dream Job"
+                onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)';">
+            <div class="carousel-caption d-none d-md-block">
+
+                {% if not user.is_authenticated %}
+                <h2 class="display-4 fw-bold">One platform, two success stories!</h2>
+                <p class="lead">Whether you're hiring or job hunting - find your perfect match.</p>
+                <a href="{% url 'register' %}" class="btn btn-light btn-lg mt-3">
+                    <i class="fa-solid fa-user-plus"></i> Get Started
+                </a>
+
+                {% elif user.is_authenticated and not user.is_hr %}
+                <h2 class="display-4 fw-bold">Find Your Dream Job</h2>
+                <p class="lead">Discover opportunities that match your skills and experience</p>
+                <a href="{% url 'job_recommendations' %}" class="btn btn-light  btn-lg mt-3">
+                    <i class="fa-solid fa-star"></i> View Recommendations
+                </a>
+
+                {% else %}
+                <h2 class="display-4 fw-bold">Streamline your hiring journey.</h2>
+                <p class="lead">From applications to shortlisting - everything simplified.</p>
+                <a href="{% url 'job_post' %}" class="btn btn-light btn-lg mt-3">
+                    <i class="fa-solid fa-plus"></i> Post a Job
+                </a>
+
+                {% endif %}
+            </div>
+            <div class="carousel-overlay"></div>
+        </div>
+        <div class="carousel-item hero-slide">
+            <img src="{% static 'images/home1_job.jpg' %}" class="d-block w-100 carousel-image"
+                alt="AI-Powered Job Recommendations"
+                onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';">
+            <div class="carousel-caption d-none d-md-block">
+
+                {% if not user.is_authenticated %}
+                <h2 class="display-4 fw-bold">AI-Powered Job Recommendations!</h2>
+                <p class="lead">Get personalized job suggestions based on your profile.</p>
+
+
+                {% elif user.is_authenticated and not user.is_hr %}
+                <h2 class="display-4 fw-bold">Find Your Dream Job</h2>
+                <p class="lead">Discover opportunities that match your skills and experience</p>
+
+
+                {% else %}
+                <h2 class="display-4 fw-bold">Better hiring. Better careers!</h2>
+                <p class="lead">Because both sides deserve the right fit.</p>
+
+
+                {% endif %}
+            </div>
+            <div class="carousel-overlay"></div>
+        </div>
+        <div class="carousel-item hero-slide">
+            <img src="{% static 'images/home2_job.jpg' %}" class="d-block w-100 carousel-image"
+                alt="Verified Job Postings"
+                onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)';">
+            <div class="carousel-caption d-none d-md-block">
+
+                {% if not user.is_authenticated %}
+                <h2 class="display-4 fw-bold">A platform built for everyone!</h2>
+                <p class="lead">Because every career and every company matters.</p>
+
+
+                {% elif user.is_authenticated and not user.is_hr %}
+                <h2 class="display-4 fw-bold">Verified Job Postings</h2>
+                <p class="lead">ML-powered verification ensures authentic job opportunities</p>
+
+
+                {% else %}
+                <h2 class="display-4 fw-bold">Smarter hiring. Stronger careers!</h2>
+                <p class="lead">Because success goes both ways.</p>
+
+
+                {% endif %}
+            </div>
+            <div class="carousel-overlay"></div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated and not user.is_hr %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-6 text-center mb-4">Find Your Dream Job</h1>
+
+    </div>
+</div>
+
+<div class="row mb-4  ">
+    <div class="col-12">
+        <div class="card bg-dark text-white" style="max-width: 1800px; margin: 0 auto;">
+            <div class="card-body home_input">
+                <form method="get" class="row g-3 ">
+                    <div class="col-md-4">
+                        {{ form.search|as_crispy_field }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form.location|as_crispy_field }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form.job_type|as_crispy_field }}
+                    </div>
+                    <div class="col-md-2 ">
+                        {{ form.experience_level|as_crispy_field }}
+                    </div>
+                    <!-- <div class="col-md-1 search_btn_home"> -->
+                    <div class="col-md-1 d-flex justify-content-center align-items-center">
+
+                        <button type="submit" class="btn btn_custombg w-100 p-0 "
+                            style="height: 40px; margin-top:13px ">
+                            Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if user.is_authenticated and not user.is_hr %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="alert alert-info bg-dark text-white border-light">
+            <i class="bi bi-lightbulb"></i>
+            <strong>Get Personalized Recommendations!</strong>
+            <span></span>
+            <a href="{% url 'job_recommendations' %}" class="badge bg-dark text-white border border-white border-1 p-2">
+                View your recommended jobs.</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-12">
+        <h3 class="mb-3">Latest Job Postings</h3>
+    </div>
+</div>
+
+<div class="row">
+    {% for job in jobs %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card job-card bg-dark text-white h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="card-title">{{ job.title }}</h5>
+                    {% if job.is_verified %}
+                    <span class="verified-badge">
+                        <i class="bi bi-check-circle"></i> Verified
+                    </span>
+                    {% else %}
+                    <span class="fake-badge">
+                        <i class="bi bi-exclamation-triangle "></i> Review
+                    </span>
+                    {% endif %}
+                </div>
+                <h6 class="text-muted">{{ job.company_name }}</h6>
+                <p class="card-text">
+                    <i class="bi bi-geo-alt"></i> {{ job.location }}
+                    {% if job.is_remote %}
+                    <span class="badge bg-success">Remote</span>
+                    {% endif %}
+                </p>
+                <p class="card-text">
+                    <small class="text-white">
+                        <i class="bi bi-briefcase"></i> {{ job.job_type }} |
+                        <i class="bi bi-person-badge"></i> {{ job.experience_level }}
+                    </small>
+                </p>
+                <p class="card-text">{{ job.description|truncatewords:20 }}</p>
+                <div class="mt-auto">
+                    <a href="{% url 'job_detail' job.pk %}" class="btn btn_custombg btn-sm">
+                        View Details <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+                <small>Posted {{ job.posted_date|timesince }} ago</small>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No jobs found. Try adjusting your search criteria.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="row mt-4">
+    <div class="col-12 text-center">
+        <a href="{% url 'job_list' %}" class="btn btn-outline-dark">View All Jobs</a>
+    </div>
+</div>
+
+{% endif %}
+
+{% if not user.is_authenticated %}
+
+<div>
+    <h2 class="display-6 text-center mb-4 mt-3">Why choose us?</h2>
+</div>
+<div class="card bg-dark text-white ps-3 pe-3">
+    <div class="row g-2 mt-3 mb-3">
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-tile">
+                <div class="state-title">Smart Job Matching-</div>
+                <div class="state-value">We use AI to match your skills with the right opportunities, saving you endless
+                    scrolling.</div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-tile">
+                <div class="state-title">Data-Driven Decisions for HRs-</div>
+                <div class="state-value">Hire smarter by seeing candidate fit instantly.</div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-tile">
+                <div class="state-title">Personalized Recommendations-</div>
+                <div class="state-value">Jobs aren’t one-size-fits-all; we tailor suggestions just for you.</div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-tile">
+                <div class="state-title">Fake Job Filter-</div>
+                <div class="state-value">Only real, verified jobs make it to your feed.</div>
+            </div>
+        </div>
+    </div>
+    <p class="state-value ps-2">and more..</p>
+</div>
+
+
+
+{% endif %}
+
+{% if user.is_authenticated and user.is_hr %}
+
+
+<div>
+    <h2 class="display-6 text-center mb-4 mt-3">"Insights to Hire Better, Faster!"</h2>
+</div>
+<div class="card bg-dark text-white ps-3 pe-3 pb-2">
+    <div class="row g-2 mt-3 mb-3">
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-tile">
+                <div class="state-title">Optimize Job Descriptions–</div>
+                <div class="state-value">Clear, concise, and inclusive job ads attract better candidates.</div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-tile">
+                <div class="state-title">Market Competitive Salaries-</div>
+                <div class="state-value">Ensure your offers are attractive for your industry.</div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-tile">
+                <div class="state-title">Monitor Candidate Experience-</div>
+                <div class="state-value">Follow up promptly, give feedback, and stay professional.</div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-tile">
+                <div class="state-title">Celebrate Quick Wins-</div>
+                <div class="state-value">Share hiring successes internally to motivate HR and teams.</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <!-- First column content -->
+            <div>
+                <h5 class="display-6 mb-4 mt-3"><i class = "fa-solid fa-clipboard-list"></i>  My Posted Jobs</h5>
+            </div>
+            <div class="row">
+                {% for job in jobs %}
+                <div class="col-12 mb-3">
+                    <div class="card bg-dark text-white">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="card-title">{{ job.title }}</h5>
+                                        <div>
+                                            {% if job.is_verified %}
+                                            <span class="verified-badge me-2">
+                                                <i class="bi bi-check-circle"></i> Verified
+                                            </span>
+                                            {% else %}
+                                            <span class="fake-badge me-2">
+                                                <i class="bi bi-exclamation-triangle"></i> Review
+                                            </span>
+                                            {% endif %}
+                                            {% if job.is_active %}
+                                            <span class="badge border border-success text-success">Active</span>
+                                            {% else %}
+                                            <span class="badge border border-secondary text-secondary">Inactive</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <h6 class="text-decoration-underline">{{ job.company_name }}</h6>
+                                    <p class="mb-2">
+                                        <i class="bi bi-geo-alt"></i> {{ job.location }} |
+                                        <i class="bi bi-briefcase"></i> {{ job.job_type }} |
+                                        <i class="bi bi-cash"></i> {{ job.get_salary_range }}
+                                    </p>
+                                    <p class="">
+                                        <small>Posted {{ job.posted_date|timesince }} ago</small> |
+                                        <small>Applications: {{ job.applications.count }}</small>
+                                    </p>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <a href="{% url 'job_detail' job.pk %}"
+                                        class="btn btn-outline-secondary btn-sm mb-2">
+                                        View
+                                    </a>
+                                    <a href="{% url 'job_edit' job.pk %}" class="btn btn-outline-secondary btn-sm mb-2">
+                                        Edit
+                                    </a>
+                                    <a href="{% url 'hr_applications' %}" class="btn btn-outline-light btn-sm mb-2">
+                                        Applications ({{ job.applications.count }})
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-info bg-dark text-white border-light">
+                        <i class="bi bi-info-circle "></i> You haven't posted any jobs yet.
+                        <a href="{% url 'job_post' %}" class="alert-link">Post your first job</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col">
+            <!-- Second column content -->
+            <div>
+                <h5 class="display-6 mb-4 mt-3 "><i class = "fa-solid fa-file-circle-plus"></i>  Post a new job</h5>
+            </div>
+
+            <div class="card bg-dark text-white ">
+                <div class=" mt-4 ms-4 me-3">
+                    <div class="">
+                        <div class="text-decoration-underline" >Find Your Next Star Employee</div>
+                        <div class="state-value">Post a new job in just a few clicks and start attracting top talent today. Your perfect hire is waiting!</div>
+                    </div>
+                </div>
+                <a href="{% url 'job_post' %}" class="btn btn-light btn-md mt-3 ms-5 me-5 mb-3">
+                    <i class="fa-solid fa-plus"></i> Post a Job
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endif %}
+{% endblock %}

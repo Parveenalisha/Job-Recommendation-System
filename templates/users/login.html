@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% load static crispy_forms_tags %}
+
+<title> {%block title%} Login {%endblock%} </title>
+
+{% block content%}
+
+<div class="row justify-content-center mt-3 " style="height: 470px;">
+    <div class="col-lg-10">
+        <div class="card shadow-lg border-0 overflow-hidden">
+            <div class="row g-0">
+                <div class="col-md-6 d-none d-md-block position-relative"
+                    style="background: url('/static/images/login_job.jpg') center/cover no-repeat;">
+                    <div class="position-absolute top-0 start-0 w-100 h-100"
+                        style="background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.85));"></div>
+                    <div class="position-absolute bottom-0 p-4 text-white">
+                        <h1 class="fw-bold mb-2">Find the Right Job, Faster.</h1>
+                        <p class="fw-bold mb-3">Our AI analyzes your profile and recommends jobs that actually fit you - not random spam.</p>
+                        <ul class="list-unstyled mb-0">
+                            <li><i class="fa-solid fa-circle-check me-2"></i>Personalized job matches</li>
+                            <li><i class="fa-solid fa-circle-check me-2"></i>Skill gap insights</li>
+                            <li><i class="fa-solid fa-circle-check me-2"></i>Real-time updates</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 p-4 bg-dark text-white">
+                    <h3 class="text-center mb-4">Login</h3>
+                    <hr>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="id_username" class="form-label">Username</label>
+                                <input type="text" name="username" class="form-control" id="id_username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_password" class="form-label">Password</label>
+                                <input type="password" name="password" class="form-control" id="id_password" required>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn signup_btn_cstm mt-3">
+                                    <i class="bi bi-box-arrow-in-right"></i> Login
+                                </button>
+                            </div>
+                        </form>
+                        <hr>
+                        <p class="text-center">
+                            Don't have an account? <a href="{% url 'register' %}" class="text-white text-sm" style="text-decoration: none;" >Register here</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{%endblock%}
+
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">Login</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" id="id_username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_password" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="id_password" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </button>
+                    </div>
+                </form>
+                <hr>
+                <p class="text-center">
+                    Don't have an account? <a href="{% url 'register' %}">Register here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+

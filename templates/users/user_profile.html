@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center ">
+        <h2>My Profile</h2>
+        <a href="{% url 'user_profile_edit' %}" class="btn btn-outline-dark">
+            <i class="bi bi-pencil"></i> Edit Profile
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card bg-dark text-white">
+            <div class="card-body text-center">
+                {% if profile.profile_picture %}
+                    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                {% else %}
+                    <div class="bg-secondary rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
+                        <i class="bi bi-person" style="font-size: 4rem; color: white;"></i>
+                    </div>
+                {% endif %}
+                <h4>{{ profile.full_name }}</h4>
+                <p >{{ profile.email }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card bg-dark text-white">
+            <div class="card-body">
+                <h5 class="card-title">Personal Information</h5>
+                <hr>
+                <p><strong>Full Name:</strong> {{ profile.full_name }}</p>
+                <p><strong>Email:</strong> {{ profile.email }}</p>
+                {% if profile.phone %}
+                <p><strong>Phone:</strong> {{ profile.phone }}</p>
+                {% endif %}
+                {% if profile.location %}
+                <p><strong>Location:</strong> {{ profile.location }}</p>
+                {% endif %}
+                {% if profile.education %}
+                <p><strong>Education:</strong> {{ profile.education }}</p>
+                {% endif %}
+                <p><strong>Experience:</strong> {{ profile.experience_years }} years</p>
+                
+                {% if profile.bio %}
+                <hr>
+                <h5>Bio</h5>
+                <p>{{ profile.bio|linebreaks }}</p>
+                {% endif %}
+                
+                {% if profile.skills %}
+                <hr>
+                <h5>Skills</h5>
+                <div>
+                    {% for skill in profile.get_skills_list %}
+                        <span class="badge border border-light me-1 mb-1">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                {% if profile.resume %}
+                <hr>
+                <a href="{{ profile.resume.url }}" class="btn btn-outline-light" download>
+                    <i class="bi bi-file-earmark-pdf"></i> Download Resume
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
