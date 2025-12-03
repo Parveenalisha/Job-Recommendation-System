@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserRegistrationForm, UserProfileForm, HRProfileForm
 from .models import UserProfile, HRProfile
+from django.contrib.auth import logout
 
 
 def register(request):
@@ -141,6 +142,12 @@ def hr_profile_edit(request):
         form = HRProfileForm(instance=profile)
     return render(request, 'users/hr_profile_form.html', {'form': form, 'edit': True})
 
+from django.contrib.auth import logout
+
+@login_required
+def logout_user(request):
+    logout(request)
+    return redirect('login')
 
 
 
