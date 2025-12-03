@@ -52,9 +52,9 @@
     </div>
     {% empty %}
     <div class="col-12">
-        <div class="alert alert-info">
+        <div class="alert alert-info bg-dark text-white border-0">
             <i class="bi bi-info-circle"></i> No applications received yet.
-            <a href="{% url 'job_post' %}" class="alert-link">Post a job</a> to start receiving applications.
+            <a href="{% url 'job_post' %}" class="alert-link text-white">Post a job</a> to start receiving applications.
         </div>
     </div>
     {% endfor %}

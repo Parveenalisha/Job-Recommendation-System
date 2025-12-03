@@ -147,7 +147,7 @@ from django.contrib.auth import logout
 @login_required
 def logout_user(request):
     logout(request)
-    return redirect('login')
+    return redirect('home')
 
 
 
